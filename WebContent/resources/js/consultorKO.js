@@ -23,6 +23,7 @@ var ConsultorModel = function() {
 	var consultorUri = 'http://localhost:8081/CIMA-BI/consultores/';
 	var empresaUri = 'http://localhost:8081/CIMA-BI/empresas/';
 	var tipoUsuario = 'http://localhost:8081/CIMA-BI/tipoUsuario/';
+	var addConsultor = 'http://localhost:8081/CIMA-BI/addusuario/';
 
 	function ajaxHelper(uri, method, data) {
 		self.error(''); // Clear error message

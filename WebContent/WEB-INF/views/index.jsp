@@ -149,9 +149,8 @@
 					<table class="table table-fixed">
 						<tbody data-bind="foreach: empresas">
 							<tr>
-								<td><input type="checkbox" name="empresas"
-									data-bind="attr: { id: 'emp' + $data.idEmpresa }"
-									data-bind="checkedValue: $data, checked: $parent.newUsuario.usuarioEmpresas" /><span
+								<td><input type="checkbox"
+									data-bind="attr: { id: 'emp' + $data.idEmpresa }, checkedValue: $data, checked: $parent.newUsuario.usuarioEmpresa" /><span
 									data-bind="text: nombre"></span></td>
 
 							</tr>
@@ -182,9 +181,6 @@
 							data-bind="click: $parent.findUsuariobyId, selectedAllProduce"
 							class="btn btn-secondary btn-sm"><strong>Editar</strong></a></td>
 					</tr>
-					<!-- <tr data-bind="foreach: usuarioEmpresas">
-						<td data-bind="text: nombre"></td>
-					</tr> -->
 				</tbody>
 			</table>
 		</div>

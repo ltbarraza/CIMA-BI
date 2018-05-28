@@ -5,6 +5,8 @@ var UsuarioModel = function() {
 	self.usuarios = ko.observableArray();
 	self.empresas = ko.observableArray();
 	self.tipoUsuarios = ko.observableArray();
+	
+
 	self.newUsuario = {
 		idUsuario : ko.observable(),
 		nombre : ko.observable(),
@@ -16,7 +18,7 @@ var UsuarioModel = function() {
 		telefono : ko.observable(),
 		activo : ko.observable(true),
 		tipoUsuario : ko.observable(),
-		usuarioEmpresas : ko.observableArray()
+		usuarioEmpresa : ko.observableArray()
 	}
 
 	self.error = ko.observable();
@@ -69,6 +71,7 @@ var UsuarioModel = function() {
 			self.newUsuario.cedula(data.cedula);
 			self.newUsuario.telefono(data.telefono);
 			self.newUsuario.activo(data.activo);
+			
 
 			$("td > :checked").prop('checked', false);
 
@@ -102,7 +105,7 @@ var UsuarioModel = function() {
 			telefono : self.newUsuario.telefono(),
 			activo : self.newUsuario.activo(),
 			tipoUsuario : self.newUsuario.tipoUsuario(),
-			usuarioEmpresas : self.newUsuario.usuarioEmpresas()
+			usuarioEmpresas : self.newUsuario.usuarioEmpresa()
 
 		};
 
@@ -116,7 +119,7 @@ var UsuarioModel = function() {
 			self.newUsuario.correo("");
 			self.newUsuario.cedula("");
 			self.newUsuario.telefono("");
-			usuarioEmpresas: self.newUsuario.usuarioEmpresas(false)
+			usuarioEmpresa: self.newUsuario.usuarioEmpresa(false);
 			self.newUsuario.activo(true);
 
 		});
