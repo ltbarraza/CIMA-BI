@@ -12,4 +12,5 @@ public interface UsuarioService {
 	public Usuario findById(int id);
 	public void SaveUsuario(Usuario usuario);
 	public void DeleteUsuario(Usuario usuario);
+	public List<Usuario> findEmpresaUsuariobyId(int id);
 }

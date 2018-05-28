@@ -29,7 +29,7 @@
 <script type="text/javascript"
 	src='<c:url value="/res/js/bootstrap.bundle.min.js.map"></c:url>'></script>
 
- <script type="text/javascript">
+<!-- <script type="text/javascript">
 	$(document)
 			.ready(
 					function() {
@@ -142,7 +142,7 @@
 		});
 
 	}
-</script> 
+</script>  -->
 
 
 
@@ -169,7 +169,7 @@
 			</a></li>
 
 			<li class="nav-item active"><a class="nav-link"
-				href="<c:url value = "empresas"/>">Empresas <span
+				href="<c:url value = "compañias"/>">Empresas <span
 					class="sr-only">(current)</span>
 			</a></li>
 
@@ -177,9 +177,7 @@
 				href="<c:url value = "consultor"/>">Consultores <span
 					class="sr-only">(current)</span>
 			</a></li>
-
 		</ul>
-
 	</div>
 	</nav>
 
@@ -188,80 +186,71 @@
 
 	<div class="container">
 		<div class="row">
-			<table id="thetable" class="table table-striped">
-				<tr>
-					<th>Nombre</th>
-					<th>Activa</th>
-					<th>Asignada</th>
-				</tr>
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th scope="col">Nombre</th>
+						<th scope="col">Activa</th>
+						<th scope="col">Asignada</th>
+					</tr>
+				</thead>
+				<tbody data-bind="foreach: empresas">
+					<tr>
+						<td data-bind="text: nombre"></td>
+						<td><input type='checkbox' data-bind="checked: activa"
+							, disabled /></td>
+						<td><input type='checkbox' data-bind="checked: asignada"
+							, disabled /></td>
+					</tr>
+				</tbody>
 			</table>
 		</div>
 
 
 
+		<div class="row">
+			<div class="col-md-6">
+				<form class="form-horizontal" data-bind="submit: addEmpresa">
 
-		<sf:form id="registro" commandName="empresa">
-
-			<div class="row">
-
-				<sf:input path="idEmpresa" id="idEmpresa" type="hidden" />
-
-				<div class="col-md-12">
-					<sf:label path="nombre">Nombre</sf:label>
-					<sf:input path="nombre" id="nombre" class="form-control"
-						type="text" />
-				</div>
-
-			</div>
-
-			<br>
-			<br>
-
-			<div class="row">
-
-				<div class="col-md-12">
-
-					<div class="form-check form-check-inline">
-						<sf:checkbox path="activa" id="activa" name="activa"
-							class="form-check-input" />
-						<sf:label path="activa" class="form-check-label" for="activa">Activa</sf:label>
+					<div class="form-group">
+						<label>Nombre</label> <input type="hidden" id="id"
+							data-bind="value: newEmpresa.idEmpresa"> <input
+							type="text" class="form-control" id="nombre"
+							data-bind="value: newEmpresa.nombre">
 					</div>
 
-				</div>
-
-			</div>
-
-			<br>
-			<br>
-
-			<div class="row">
-				<div class="col-md-12">
-					<div class="form-check form-check-inline">
-						<sf:checkbox path="asignada" id="asignada" name="asignada"
-							class="form-check-input" />
-						<sf:label path="asignada" class="form-check-label" for="asignada">Asignada</sf:label>
+					<div class="form-check form-check-label">
+						<input type="checkbox" class="form-check-input"
+							data-bind="checked: newEmpresa.activa" /> <label
+							class="form-check-label">Activa</label>
 					</div>
-				</div>
+
+					<div class="form-check form-check-label">
+						<input type="checkbox" class="form-check-input"
+							data-bind="checked: newEmpresa.asignada" /> <label
+							class="form-check-label">Asignada</label>
+					</div> <br><br>
+
+					<div class="form-group">
+						<button type="submit" class="btn btn-default">Guardar</button>
+					</div>
+
+
+
+
+				</form>
 			</div>
-
-			<br>
-			<br>
-
-			<div class="row">
-				<sf:button class="btn btn-primary">Guardar</sf:button>
-			</div>
-
-		</sf:form>
-
+			<div class="col-md-6"></div>
+		</div>
 	</div>
 
 
 
+	<script type="text/javascript"
+		src='<c:url value="/res/js/knockoutjs.js"></c:url>'></script>
 
-
-
-
-
+	<script type="text/javascript"
+		src='<c:url value="/res/js/empresaKO.js"></c:url>'></script>
 
 
 

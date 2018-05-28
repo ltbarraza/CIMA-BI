@@ -1,14 +1,14 @@
 package pojo;
 
+import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -19,33 +19,30 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity
 @Table(name = "Empresas")
 public class Empresa {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int idEmpresa;
-	
-	@Column(name="nombre")
+
+	@Column(name = "nombre")
 	private String nombre;
-	
-	@Column(name="activa")
+
+	@Column(name = "activa")
 	private boolean activa;
-	
-	@Column(name="asignada")
+
+	@Column(name = "asignada")
 	private boolean asignada;
-	
+
+	@ManyToMany(mappedBy = "empresas",  cascade = CascadeType.ALL)
 	@JsonBackReference
-	@ManyToMany
-	@JoinTable(name="UsuarioEmpresa",
-	joinColumns={@JoinColumn(name="idEmpresa")},
-	inverseJoinColumns={@JoinColumn(name="idUsuario")})
-	private Set<Usuario> usuarios;
-	
+	private Set<Usuario> usuarios = new HashSet<Usuario>();
+
 	@JsonIgnore
-	@OneToMany(mappedBy="empresa")
+	@OneToMany(mappedBy = "empresa")
 	private Set<Boletin> boletins;
-	
-	public Empresa(){
-		
+
+	public Empresa() {
+
 	}
 
 	public Empresa(int idEmpresa, String nombre, boolean activa, boolean asignada, Set<Usuario> usuarios,
@@ -106,7 +103,5 @@ public class Empresa {
 	public void setBoletins(Set<Boletin> boletins) {
 		this.boletins = boletins;
 	}
-	
-	
 
 }

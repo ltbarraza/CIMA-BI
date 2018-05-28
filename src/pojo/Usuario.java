@@ -1,20 +1,23 @@
 package pojo;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
@@ -40,9 +43,6 @@ public class Usuario {
 	@Column(name = "correo", nullable = false, length = 100)
 	public String correo;
 
-	@Column(name = "groupid", nullable = false, length = 100)
-	private String groupid;
-
 	@Column(name = "cedula", nullable = false)
 	private Double cedula;
 
@@ -52,20 +52,15 @@ public class Usuario {
 	@Column(name = "activo", nullable = false)
 	private boolean activo;
 
-	// @JsonManagedReference //indicar que la propiedad asociada es parte de la
-	// vinculación bidireccional entre campos; y que su función es el enlace "hijo"
-	// (o "posterior"). El tipo de valor de la propiedad debe ser un bean: no puede
-	// ser una Collection, Map, Array o enumeración. El enlace se maneja de tal
-	// manera que la propiedad anotada con esta anotación no se serializa; y durante
-	// la deserialización, su valor se establece en la instancia que tiene el enlace
-	// "administrado" (hacia adelante).
 	@ManyToOne()
 	@JoinColumn(name = "idTipo_Usuario", nullable = false)
 	private TipoUsuario tipoUsuario;
 
-	@JsonBackReference
-	@ManyToMany(mappedBy = "usuarios")
-	private Set<Empresa> empresas;
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinTable(name = "UsuarioEmpresa", joinColumns = { @JoinColumn(name = "idUsuario") }, inverseJoinColumns = {
+			@JoinColumn(name = "idEmpresa") })
+
+	private Set<Empresa> empresas = new HashSet<Empresa>();
 
 	@JsonIgnore
 	@OneToMany(mappedBy = "usuario")
@@ -76,21 +71,20 @@ public class Usuario {
 	}
 
 	public Usuario(int idUsuario, String nombre, String apellido, String usuario, String clave, String correo,
-			String groupid, Double cedula, Double telefono, boolean activo, TipoUsuario tipoUsuario,
-			Set<Empresa> empresas, List<Boletin> boletins) {
-
+			Double cedula, Double telefono, boolean activo, TipoUsuario tipoUsuario, Set<Empresa> usuarioEmpresas,
+			List<Boletin> boletins) {
+		super();
 		this.idUsuario = idUsuario;
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.usuario = usuario;
 		this.clave = clave;
 		this.correo = correo;
-		this.groupid = groupid;
 		this.cedula = cedula;
 		this.telefono = telefono;
 		this.activo = activo;
 		this.tipoUsuario = tipoUsuario;
-		this.empresas = empresas;
+		this.empresas = usuarioEmpresas;
 		this.boletins = boletins;
 	}
 
@@ -142,14 +136,6 @@ public class Usuario {
 		this.correo = correo;
 	}
 
-	public String getGroupid() {
-		return groupid;
-	}
-
-	public void setGroupid(String groupid) {
-		this.groupid = groupid;
-	}
-
 	public Double getCedula() {
 		return cedula;
 	}
@@ -182,12 +168,12 @@ public class Usuario {
 		this.tipoUsuario = tipoUsuario;
 	}
 
-	public Set<Empresa> getEmpresas() {
+	public Set<Empresa> getUsuarioEmpresas() {
 		return empresas;
 	}
 
-	public void setEmpresas(Set<Empresa> empresas) {
-		this.empresas = empresas;
+	public void setUsuarioEmpresas(Set<Empresa> usuarioEmpresas) {
+		this.empresas = usuarioEmpresas;
 	}
 
 	public List<Boletin> getBoletins() {

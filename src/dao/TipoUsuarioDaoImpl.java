@@ -1,5 +1,7 @@
 package dao;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.hibernate.Session;
@@ -26,6 +28,14 @@ public class TipoUsuarioDaoImpl implements TipoUsuarioDao  {
 				.setParameter("idTipo_Usuario", id).uniqueResult();
 		
 		return tipoUsuario;
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<TipoUsuario> AllTipoUsuario() {
+		
+		return getSession().createQuery("from TipoUsuario").getResultList();
+		
+		
 	}
 
 }

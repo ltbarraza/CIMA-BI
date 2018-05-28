@@ -1,5 +1,7 @@
 package service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +16,11 @@ public class TipoUsuarioServiceImpl implements TipoUsuarioService  {
 	public TipoUsuario findById(int id) {
 	
 		return tipoUsuarioDao.findById(id);
+	}
+
+	public List<TipoUsuario> AllTipoUsuario() {
+		
+		return tipoUsuarioDao.AllTipoUsuario();
 	}
 
 }

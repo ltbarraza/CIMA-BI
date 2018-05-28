@@ -23,10 +23,8 @@ public class TipoUsuario {
 	@Column(name = "nombre")
 	public String nombre;
 
-	
-
-	@JsonBackReference
-	@OneToMany(mappedBy = "usuario")
+	@JsonBackReference //@JsonBackReference es la parte posterior de la referencia; se omitirá de la serialización.
+	@OneToMany(mappedBy = "tipoUsuario")
 	public Set<Usuario> usuarios;
 
 	public TipoUsuario() {

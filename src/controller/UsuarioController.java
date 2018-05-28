@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import pojo.Empresa;
+import pojo.TipoUsuario;
 import pojo.Usuario;
-import pojo.UsuarioEmpresa;
-import service.UsuarioEmpresaService;
+import service.TipoUsuarioService;
 import service.UsuarioService;
 
 @RestController
@@ -23,10 +23,22 @@ public class UsuarioController {
 
 	@Autowired
 	UsuarioService usuarioService;
-	
+
 	@Autowired
-	UsuarioEmpresaService usuarioEmpresaService;
-	
+	TipoUsuarioService tipoUsuarioService;
+
+	@RequestMapping(value = "/tipoUsuario/{id}", method = RequestMethod.GET)
+	public ResponseEntity<TipoUsuario> getTipo(@PathVariable int id) {
+
+		TipoUsuario tipoUsuario = tipoUsuarioService.findById(id);
+
+		if (tipoUsuario == null) {
+
+			return new ResponseEntity<TipoUsuario>(HttpStatus.NO_CONTENT);
+		}
+
+		return new ResponseEntity<TipoUsuario>(tipoUsuario, HttpStatus.OK);
+	}
 
 	@RequestMapping(value = "/usuarios", method = RequestMethod.GET)
 	public ResponseEntity<List<Usuario>> getAllUsuarios() {
@@ -40,7 +52,7 @@ public class UsuarioController {
 
 		return new ResponseEntity<List<Usuario>>(usuarios, HttpStatus.OK);
 	}
-	
+
 	@RequestMapping(value = "/consultores", method = RequestMethod.GET)
 	public ResponseEntity<List<Usuario>> getAllConsultores() {
 
@@ -54,9 +66,9 @@ public class UsuarioController {
 		return new ResponseEntity<List<Usuario>>(usuarios, HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "/usuario/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/usuarios/{id}", method = RequestMethod.GET)
 	public ResponseEntity<Usuario> getUsuario(@PathVariable("id") int id) {
-		
+
 		Usuario usuario = usuarioService.findById(id);
 
 		if (usuario == null) {
@@ -66,35 +78,37 @@ public class UsuarioController {
 
 		return new ResponseEntity<Usuario>(usuario, HttpStatus.OK);
 	}
-	
-	/* la anotación @RequestBody asigna el cuerpo HttpRequest a un objeto de transferencia u objeto de dominio, lo que permite la deserialización 
-	 * automática del cuerpo HttpRequest entrante en un objeto Java.*/
+
+	@RequestMapping(value = "/consultores/{id}", method = RequestMethod.GET)
+	public ResponseEntity<Usuario> getConsultor(@PathVariable("id") int id) {
+
+		Usuario usuario = usuarioService.findById(id);
+
+		if (usuario == null) {
+
+			return new ResponseEntity<Usuario>(HttpStatus.NO_CONTENT);
+		}
+
+		return new ResponseEntity<Usuario>(usuario, HttpStatus.OK);
+	}
+
+	/*
+	 * la anotación @RequestBody asigna el cuerpo HttpRequest a un objeto de
+	 * transferencia u objeto de dominio, lo que permite la deserialización
+	 * automática del cuerpo HttpRequest entrante en un objeto Java.
+	 */
 
 	@RequestMapping(value = "/addusuario", method = RequestMethod.POST)
-	public ResponseEntity<?> add(@RequestBody  Usuario usuario) {
-		
+	public ResponseEntity<Usuario> add(@RequestBody Usuario usuario) {
+
 		usuarioService.SaveUsuario(usuario);
-		
-		UsuarioEmpresa usuarioEmpresa = new UsuarioEmpresa();
-		
-		for (  Empresa idEmpresas: usuario.getEmpresas()) {
-			
-			 usuarioEmpresa.setIdEmpresa(idEmpresas.getIdEmpresa());
-			 usuarioEmpresa.setIdUsuario(usuario.getIdUsuario());
-		}
-		
-		@SuppressWarnings("unchecked")
-		List<UsuarioEmpresa> usuarioEmpresas = (List<UsuarioEmpresa>) usuarioEmpresa;
-		
-		usuarioEmpresaService.SaveUsuarioEmpresa(usuarioEmpresas);
-			
-		HttpHeaders headers = new HttpHeaders();
-		return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
+
+		return new ResponseEntity<Usuario>(usuario, HttpStatus.CREATED);
 	}
 
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<Void> delete(@PathVariable("id") int id) {
-		
+
 		usuarioService.DeleteUsuario(usuarioService.findById(id));
 
 		HttpHeaders headers = new HttpHeaders();

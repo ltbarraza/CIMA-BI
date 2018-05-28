@@ -13,7 +13,7 @@ import pojo.Empresa;
 
 @Repository
 @Transactional
-public class EmpresaDaoImpl implements EmpresaDao  {
+public class EmpresaDaoImpl implements EmpresaDao {
 
 	@Autowired
 	private SessionFactory sessionFactory;

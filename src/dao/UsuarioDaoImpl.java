@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
-import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +13,7 @@ import pojo.Usuario;
 
 @Repository
 @Transactional
-public class UsuarioDaoImpl implements UsuarioDao  {
+public class UsuarioDaoImpl implements UsuarioDao {
 
 	@Autowired
 	private SessionFactory sessionFactory;
@@ -47,10 +46,25 @@ public class UsuarioDaoImpl implements UsuarioDao  {
 		return usuario;
 	}
 	
-	@org.springframework.transaction.annotation.Transactional
+	
+	public List<Usuario> findEmpresaUsuariobyId(int id) {
+		
+		@SuppressWarnings("unchecked")
+		List<Usuario> usuario = (List<Usuario>) getSession().createQuery("SELECT usuario.nombre FROM Empresa empresa join empresa.usuarios usuario where usuario.idUsuario = :idUsuario")
+								.setParameter("idUsuario", id).getResultList();
+			
+		return usuario;
+	}
+	
+	
 	public void SaveUsuario(Usuario usuario) {
 		
+		
+		
 		getSession().save(usuario);
+	
+		
+		
 		
 	}
 

@@ -21,38 +21,28 @@ public class IndexController {
 	EmpresaService empresaservice;
 	
 	@RequestMapping("/")
-	public String showIndex(Model model) {
-		
-		TipoUsuario tipoUsuario = tipoUsuarioService.findById(3);
-		
-		
-		model.addAttribute("usuario", new Usuario());
-		model.addAttribute("tipoUsuario", tipoUsuario);
-		model.addAttribute("empresas", new Empresa());
+	public String showIndex() {
 		
 		return "index";
 	}
 	
 	@RequestMapping("/consultor")
-	public String consultores(Model model) {
+	public String consultores() {
 		
-		TipoUsuario tipoUsuario = tipoUsuarioService.findById(2);
-		
-		model.addAttribute("usuario", new Usuario());
-		model.addAttribute("tipoUsuario", tipoUsuario);
-		model.addAttribute("empresas", new Empresa());
-		
+
 		return "consultores";
 	}
 	
-	@RequestMapping("/empresas")
-	public String empresa(Model model){
-		
-		model.addAttribute("empresa", new Empresa());
+	@RequestMapping("/compañias")
+	public String empresa(){
 		
 		return "compañias";
 	}
 	
-	
+	@RequestMapping("/prueba")
+	public String usuarios(){
+		
+		return "prueba";
+	}
 
 }
