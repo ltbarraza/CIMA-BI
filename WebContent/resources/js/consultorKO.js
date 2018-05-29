@@ -68,6 +68,8 @@ var ConsultorModel = function() {
 			self.newConsultor.cedula(data.cedula);
 			self.newConsultor.telefono(data.telefono);
 			self.newConsultor.activo(data.activo);
+			self.empresas(data.usuarioEmpresas);
+			self.newConsultor.usuarioEmpresas(data.usuarioEmpresas)
 
         });
     }
@@ -90,8 +92,8 @@ var ConsultorModel = function() {
 
 		};
 
-		ajaxHelper(addusuario, 'POST', usuario).done(function(item) {
-			self.newConsultor.push(item);
+		ajaxHelper(addConsultor, 'POST', usuario).done(function(item) {
+			getAllConsultores();
 			self.newConsultor.idUsuario("");
 			self.newConsultor.nombre("");
 			self.newConsultor.apellido("");
@@ -100,8 +102,9 @@ var ConsultorModel = function() {
 			self.newConsultor.correo("");
 			self.newConsultor.cedula("");
 			self.newConsultor.telefono("");
-			usuarioEmpresas : self.newConsultor.usuarioEmpresas(false)
+			self.newConsultor.usuarioEmpresas(false);
 			self.newConsultor.activo(true);
+		
 
 		});
 

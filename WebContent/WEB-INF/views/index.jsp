@@ -150,7 +150,7 @@
 						<tbody data-bind="foreach: empresas">
 							<tr>
 								<td><input type="checkbox"
-									data-bind="attr: { id: 'emp' + $data.idEmpresa }, checkedValue: $data, checked: $parent.newUsuario.usuarioEmpresa" /><span
+									data-bind="checkedValue: $data, checked: $parent.newUsuario.usuarioEmpresa" /><span
 									data-bind="text: nombre"></span></td>
 
 							</tr>
@@ -178,12 +178,15 @@
 						<td data-bind="text: telefono"></td>
 						<td data-bind="text: correo"></td>
 						<td><a href="#"
-							data-bind="click: $parent.findUsuariobyId, selectedAllProduce"
+							data-bind="click: $parent.findUsuariobyId"
 							class="btn btn-secondary btn-sm"><strong>Editar</strong></a></td>
 					</tr>
 				</tbody>
 			</table>
 		</div>
+
+
+
 	</div>
 
 	<script type="text/javascript"

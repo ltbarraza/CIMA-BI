@@ -9,143 +9,13 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 
 <link rel="stylesheet"
-	href='<c:url value="/res/css/bootstrap-grid.min.css"></c:url>' />
-
-<link rel="stylesheet"
 	href='<c:url value="/res/css/bootstrap.min.css"></c:url>' />
 
-
-
-<!-- Librerias_javascript  -->
 <script type="text/javascript"
-	src='<c:url value="/res/js/jquery-3.3.1.min.js"></c:url>'></script>
+	src='<c:url value="/res/js/jquery.js"></c:url>'></script>
 
 <script type="text/javascript"
-	src='<c:url value="/res/js/jquery-ui.js"></c:url>'></script>
-
-<script type="text/javascript"
-	src='<c:url value="/res/js/bootstrap.min.js.map"></c:url>'></script>
-
-<script type="text/javascript"
-	src='<c:url value="/res/js/bootstrap.bundle.min.js.map"></c:url>'></script>
-
-<!-- <script type="text/javascript">
-	$(document)
-			.ready(
-					function() {
-
-						$
-								.ajax({
-
-									type : "GET",
-									url : '${pageContext.request.contextPath}/Empresa/empresas',
-									success : function(data) {
-
-										var empresas = data;
-
-										var html = '';
-
-										empresas
-												.forEach(function(empresas,
-														index) {
-
-													html += '<tr><td>'
-															+ '<a href="javascript:findEmpresbyId('
-															+ empresas.idEmpresa
-															+ ')">'
-															+ empresas.nombre
-															+ '</a>'
-															+ '</td><td>'
-															+ '<input type="checkbox">'
-															+ '</td><td>'
-															+ '<input type="checkbox">'
-															+ '</td></tr>'
-
-												});
-
-										$('#thetable tr').first().after(html);
-
-									}
-								});
-
-						$('#registro')
-								.submit(
-										function(event) {
-
-											$
-													.ajax({
-
-														url : '${pageContext.request.contextPath}/addempresa',
-														type : 'POST',
-														data : JSON
-																.stringify({
-
-																	nombre : $(
-																			'#nombre')
-																			.val(),
-
-																	idEmpresa : $(
-																			"#idEmpresa")
-																			.val(),
-
-																	activa : $(
-																			"input:checkbox[name=activa]:checked")
-																			.val(),
-
-																	asignada : $(
-																			"input:checkbox[name=asignada]:checked")
-																			.val()
-
-																}),
-														processData : false,
-														contentType : "application/json"
-													})
-											evento.preventDefault();
-										});
-
-					});
-
-	function findEmpresbyId(id) {
-
-		$.ajax({
-
-			type : "GET",
-			url : '${pageContext.request.contextPath}/empresa/' + id,
-			success : function(data) {
-
-				$("#nombre").val(data.nombre);
-				$("#idEmpresa").val(data.idEmpresa);
-
-				if (data.activa == true) {
-
-					$('#activa').prop('checked', true);
-					$('#activa').val(data.activa);
-
-				} else {
-
-					$('#activa').prop('checked', false);
-					/* $('#activa').val(data.activa); */
-				}
-
-				if (data.asignada == true) {
-
-					$('#asignada').prop('checked', true);
-					$('#asignada').val(data.asignada);
-
-				} else {
-
-					$('#asignada').prop('checked', false);
-					/* $('#asignada').val(data.asignada); */
-				}
-			}
-
-		});
-
-	}
-</script>  -->
-
-
-
+	src='<c:url value="/res/js/bootstrap.min.js"></c:url>'></script>
 
 <title>Compañias</title>
 </head>
@@ -185,28 +55,6 @@
 	<br>
 
 	<div class="container">
-		<div class="row">
-			<table class="table table-striped">
-				<thead>
-					<tr>
-						<th scope="col">Nombre</th>
-						<th scope="col">Activa</th>
-						<th scope="col">Asignada</th>
-					</tr>
-				</thead>
-				<tbody data-bind="foreach: empresas">
-					<tr>
-						<td data-bind="text: nombre"></td>
-						<td><input type='checkbox' data-bind="checked: activa"
-							, disabled /></td>
-						<td><input type='checkbox' data-bind="checked: asignada"
-							, disabled /></td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
-
-
 
 		<div class="row">
 			<div class="col-md-6">
@@ -229,18 +77,39 @@
 						<input type="checkbox" class="form-check-input"
 							data-bind="checked: newEmpresa.asignada" /> <label
 							class="form-check-label">Asignada</label>
-					</div> <br><br>
+					</div>
+					<br> <br>
 
 					<div class="form-group">
 						<button type="submit" class="btn btn-default">Guardar</button>
 					</div>
-
-
-
-
 				</form>
 			</div>
 			<div class="col-md-6"></div>
+		</div>
+
+
+		<div class="row">
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th scope="col">Nombre</th>
+						<th scope="col">Activa</th>
+						<th scope="col">Asignada</th>
+					</tr>
+				</thead>
+				<tbody data-bind="foreach: empresas">
+					<tr>
+						<td data-bind="text: nombre"></td>
+						<td><input type='checkbox' data-bind="checked: activa"
+							, disabled /></td>
+						<td><input type='checkbox' data-bind="checked: asignada"
+							, disabled /></td>
+						<td><a href="#" data-bind="click: $parent.findEmpresaId"
+							class="btn btn-secondary btn-sm"><strong>Editar</strong></a></td>
+					</tr>
+				</tbody>
+			</table>
 		</div>
 	</div>
 

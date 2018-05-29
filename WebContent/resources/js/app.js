@@ -5,7 +5,6 @@ var UsuarioModel = function() {
 	self.usuarios = ko.observableArray();
 	self.empresas = ko.observableArray();
 	self.tipoUsuarios = ko.observableArray();
-	
 
 	self.newUsuario = {
 		idUsuario : ko.observable(),
@@ -71,23 +70,10 @@ var UsuarioModel = function() {
 			self.newUsuario.cedula(data.cedula);
 			self.newUsuario.telefono(data.telefono);
 			self.newUsuario.activo(data.activo);
+			self.empresas(data.usuarioEmpresas);
+			self.newUsuario.usuarioEmpresa(data.usuarioEmpresas)
 			
 
-			$("td > :checked").prop('checked', false);
-
-			data.usuarioEmpresas.forEach(function(element) {
-
-				self.empresas().forEach(function(elemento) {
-
-					if (element.idEmpresa == elemento.idEmpresa) {
-
-						$("#emp" + elemento.idEmpresa).prop('checked', true);
-
-					}
-
-				});
-
-			});
 		});
 	}
 
@@ -110,7 +96,7 @@ var UsuarioModel = function() {
 		};
 
 		ajaxHelper(addusuario, 'POST', usuario).done(function(item) {
-			self.usuarios.push(item);
+			getAllUsuarios();
 			self.newUsuario.idUsuario("");
 			self.newUsuario.nombre("");
 			self.newUsuario.apellido("");

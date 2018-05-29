@@ -34,7 +34,7 @@ public class EmpresaController {
 		return new ResponseEntity<List<Empresa>>(empresas, HttpStatus.OK);
 	}
 	
-	@RequestMapping(value = "/empresa/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/empresas/{id}", method = RequestMethod.GET)
 	public ResponseEntity<Empresa> getUsuario(@PathVariable("id") int id){
 		
 		Empresa empresa = empresaservice.findById(id);
@@ -49,12 +49,11 @@ public class EmpresaController {
 
 	
 	@RequestMapping(value = "/addempresa", method = RequestMethod.POST)
-	public ResponseEntity<?> add(@RequestBody Empresa empresa) {
+	public ResponseEntity<Empresa> add(@RequestBody Empresa empresa) {
 		
 		empresaservice.saveEmpresa(empresa);
 		
-		HttpHeaders headers = new HttpHeaders();
-		return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
+		return new ResponseEntity<Empresa>(empresa, HttpStatus.CREATED);
 	}
 	
 	

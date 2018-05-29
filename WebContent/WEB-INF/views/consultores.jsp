@@ -9,16 +9,13 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 
 <link rel="stylesheet"
-	href='<c:url value="/res/css/bootstrap-grid.min.css"></c:url>' />
-<link rel="stylesheet"
 	href='<c:url value="/res/css/bootstrap.min.css"></c:url>' />
 
 <script type="text/javascript"
 	src='<c:url value="/res/js/jquery.js"></c:url>'></script>
+
 <script type="text/javascript"
-	src='<c:url value="/res/js/bootstrap.min.js.map"></c:url>'></script>
-<script type="text/javascript"
-	src='<c:url value="/res/js/bootstrap.bundle.min.js.map"></c:url>'></script>
+	src='<c:url value="/res/js/bootstrap.min.js"></c:url>'></script>
 
 
 
@@ -59,33 +56,7 @@
 	<br>
 
 	<div id="div" class="container">
-		<div class="row">
-			<h2>Consultores</h2>
-			<table class="table table-striped">
-				<thead>
-					<tr>
-						<th scope="col">Nombre</th>
-						<th scope="col">Apellido</th>
-						<th scope="col">Telefono</th>
-						<th scope="col">Correo</th>
-					</tr>
-				</thead>
-				<tbody data-bind="foreach: consultores">
-					<tr>
-						<td data-bind="text: nombre"></td>
-						<td data-bind="text: apellido"></td>
-						<td data-bind="text: telefono"></td>
-						<td data-bind="text: correo"></td>
-						<td><a href="#" data-bind="click: $parent.findConsultorbyId"
-							class="btn btn-secondary btn-sm"><strong>Editar</strong></a></td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
-
-		<br>
-
-
+		
 		<div class="row">
 			<div class="col-md-8">
 				<form class="form-horizontal" data-bind="submit: addConsultor">
@@ -164,7 +135,7 @@
 							<div class="row">
 								<div class="col-md-6"></div>
 								<div class="col-md-6">
-									<button type="submit" class="btn btn-default">Guardar</button>
+									<button type="submit" class="btn btn-secondary">Guardar</button>
 								</div>
 							</div>
 						</div>
@@ -191,6 +162,40 @@
 				</div>
 			</div>
 		</div>
+		
+		
+		
+		
+		
+		
+		<div class="row">
+			<h2>Consultores</h2>
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th scope="col">Nombre</th>
+						<th scope="col">Apellido</th>
+						<th scope="col">Telefono</th>
+						<th scope="col">Correo</th>
+					</tr>
+				</thead>
+				<tbody data-bind="foreach: consultores">
+					<tr>
+						<td data-bind="text: nombre"></td>
+						<td data-bind="text: apellido"></td>
+						<td data-bind="text: telefono"></td>
+						<td data-bind="text: correo"></td>
+						<td><a href="#" data-bind="click: $parent.findConsultorbyId"
+							class="btn btn-secondary btn-sm"><strong>Editar</strong></a></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
+	
+
+
+		
 	</div>
 
 	<script type="text/javascript"

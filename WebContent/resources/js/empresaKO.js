@@ -12,7 +12,8 @@ var EmpresaModel = function() {
 
 	}
 
-	var empresaUri = 'http://localhost:8081/CIMA-BI/empresas'
+	var empresaUri = 'http://localhost:8081/CIMA-BI/empresas/'
+	var addempresa = 'http://localhost:8081/CIMA-BI/addempresa/'
 
 	function ajaxHelper(uri, method, data) {
 		self.error(''); // Clear error message
@@ -32,10 +33,23 @@ var EmpresaModel = function() {
 			self.empresas(data);
 		});
 	}
+	
+	
+	self.findEmpresaId = function (item) {
+        ajaxHelper(empresaUri + item.idEmpresa, 'GET').done(function (data) {
+
+			self.newEmpresa.idEmpresa(data.idEmpresa);
+			self.newEmpresa.nombre(data.nombre);
+			self.newEmpresa.activa(data.activa);
+			self.newEmpresa.asignada(data.asignada);
+
+        });
+    }
+
 
 	self.addEmpresa = function(formElement) {
 
-		var usuario = {
+		var empresa = {
 
 			idEmpresa : self.newEmpresa.idEmpresa(),
 			nombre : self.newEmpresa.nombre(),
@@ -44,8 +58,8 @@ var EmpresaModel = function() {
 
 		};
 
-		ajaxHelper(addusuario, 'POST', usuario).done(function(item) {
-			
+		ajaxHelper(addempresa, 'POST', empresa).done(function(item) {
+			getAllEmpresa();
 			self.newEmpresa.idEmpresa("");
 		    self.newEmpresa.nombre("");
 			self.newEmpresa.activa(false);
